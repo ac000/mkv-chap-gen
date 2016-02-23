@@ -1,0 +1,47 @@
+Overview
+========
+
+mkv-chap-gen is a simple utility to create Matroska simple format chapter
+files of the form
+
+    CHAPTERxx=
+    CHAPTERxxNAME=
+
+e.g
+
+    CHAPTER01=00:00:00.000
+    CHAPTER01NAME=Chapter 1
+    CHAPTER02=00:09:30.480
+    CHAPTER02NAME=Chapter 2
+    CHAPTER03=00:23:16.040
+    CHAPTER03NAME=Chapter 3
+    CHAPTER04=00:31:21.000
+    CHAPTER04NAME=Chapter 4
+
+To do this it takes the JSON output of dvd_info
+(https://github.com/beandog/dvd_info) for the required title. e,g
+
+    $ dvd_info -j -t 1 | mkv-chap-gen
+
+or e.g
+
+    $ dvd_info -j -t 5 /path/to/iso | mkv-chap-gen > movie-chapters.txt
+
+
+License
+=======
+
+mkv-chap-gen is licensed under the terms of the GPLv2. See the COPYING file.
+
+jsmn is licensed under the MIT license see jsmn-LICENSE
+
+
+Contributing
+============
+
+See CodingStyle. Also, code should be signed-off. This means adding a line
+that says "Signed-off-by: Name <email>" at the end of each commit, indicating
+that you wrote the code and have the right to pass it on as an open source
+patch.
+
+See: http://developercertificate.org/
