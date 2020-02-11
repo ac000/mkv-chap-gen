@@ -44,6 +44,9 @@ static void parse_json(const char *json)
 	int chapters_found = 0;
 	int start_time = 0;
 
+	if (!json)
+		return;
+
 	jsmn_init(&parser);
 	tokens = malloc(sizeof(jsmntok_t) * NR_TKNS);
 	do {
@@ -100,13 +103,10 @@ static void parse_json(const char *json)
 
 int main(void)
 {
-	char *json;
+	char *json = NULL;
 	ssize_t bytes_read;
 	size_t total = 0;
 	size_t allocd = 0;
-
-	json = malloc(1);
-	allocd = 1;
 
 	do {
 		json = realloc(json, allocd + BUF_SIZE);
