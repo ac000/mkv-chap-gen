@@ -1,7 +1,7 @@
 /*
  * mkv-chap-gen.c - Generate a simple chapter format file for Matroska
  *
- * Copyright (c) 2016		Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (c) 2016, 2020	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License V2
  * See COPYING
@@ -31,7 +31,7 @@ static void ms_to_timecode(int ms, char *timecode)
 	hours = (ms - millis)/1000 / 60 / 60;
 
 	snprintf(timecode, TC_LEN, "%02d:%02d:%02d.%03d", hours, minutes,
-			seconds, millis);
+		 seconds, millis);
 }
 
 static void parse_json(const char *json)
@@ -48,11 +48,11 @@ static void parse_json(const char *json)
 	tokens = malloc(sizeof(jsmntok_t) * NR_TKNS);
 	do {
 		err = jsmn_parse(&parser, json, strlen(json), tokens,
-				NR_TKNS * i);
+				 NR_TKNS * i);
 		if (err == JSMN_ERROR_NOMEM) {
 			i++;
 			tokens = realloc(tokens,
-					sizeof(jsmntok_t) * NR_TKNS * i);
+					 sizeof(jsmntok_t) * NR_TKNS * i);
 		} else if (err < 0) {
 			printf("mkv-chap-gen::jsmn_parse: error: ");
 			switch (err) {
@@ -84,7 +84,7 @@ static void parse_json(const char *json)
 			ms_to_timecode(start_time, tc);
 			printf("CHAPTER%02d=%s\n", chapters_found, tc);
 			printf("CHAPTER%02dNAME=Chapter %d\n", chapters_found,
-					chapters_found);
+			       chapters_found);
 
 			if (chapters_found == chapters)
 				break;
@@ -92,13 +92,13 @@ static void parse_json(const char *json)
 			i++;
 			memcpy(&tkn, &tokens[i], sizeof(jsmntok_t));
 			snprintf(stime, tkn.end - tkn.start + 1, "%s",
-					json + tkn.start);
+				 json + tkn.start);
 			start_time += atoi(stime);
 		}
 	}
 }
 
-int main(int argc, char *argv[])
+int main(void)
 {
 	char *json;
 	ssize_t bytes_read;
